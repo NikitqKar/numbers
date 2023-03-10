@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nik.mornhouse.data.entity.NumberFact
 import com.nik.mornhouse.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +21,7 @@ class MainFragment : Fragment() {
     private var binding: FragmentMainBinding? = null
     private val viewModel by viewModels<MainViewModel>()
     private val adapter = NumberFactAdapter { fact ->
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(fact))
 
     }
 
