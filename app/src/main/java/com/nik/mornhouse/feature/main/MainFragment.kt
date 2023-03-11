@@ -1,6 +1,7 @@
 package com.nik.mornhouse.feature.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,31 +42,34 @@ class MainFragment : Fragment() {
                 adapter.setItems(facts)
             }
 
+            viewModel.factTextLiveData.observe(viewLifecycleOwner) { fact ->
+                tvText.text = fact
+            }
+
+            getRandomFactButton.setOnClickListener {
+                val number = (1..1000).random()
+                numberEdittext.apply {
+                    setText("")
+                    setText(number.toString())
+                }
+            }
             getFactButton.setOnClickListener {
                 val numberStr = numberEdittext.text.toString()
                 if (numberStr.isBlank()) {
                     numberEdittext.error = "You should write number"
                     return@setOnClickListener
                 }
-                val number = numberStr.toInt()
+                val number = numberStr.toLong()
+                Log.d("Nik", "Getting fact for number: $number")
                 viewModel.viewModelScope.launch {
                     val fact = viewModel.getNumberFact(number)
-                    textView.text = fact
-                    viewModel.factText = fact
-                }
-            }
-
-            getRandomFactButton.setOnClickListener {
-                val number = (1..1000).random()
-                viewModel.viewModelScope.launch {
-                    val fact = viewModel.getNumberFact(number)
-                    textView.text = fact
-                    viewModel.factText = fact
+                    viewModel.setFactText(fact)
                 }
             }
         }
         return binding!!.root
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null

@@ -1,5 +1,6 @@
 package com.nik.mornhouse.feature.main
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +21,14 @@ class NumberFactAdapter(private val onItemClickListener: (NumberFact) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        Log.d("Nik", "onCreateViewHolder called")
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("Nik", "onBindViewHolder called with position: $position")
         val item = items[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {

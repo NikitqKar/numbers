@@ -14,6 +14,8 @@ class NumberRepository(private val api: NumbersApi, private val numberFactDao: N
             val text = response.body() ?: throw Exception("Response body is null")
             val numberFact = NumberFact(number.toInt(), text)
             numberFactDao.insert(numberFact)
+            Log.d("Nik", "insert in database")
+
             return text
         } else {
             throw Exception("API call failed")

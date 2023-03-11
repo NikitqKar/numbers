@@ -1,6 +1,7 @@
 package com.nik.mornhouse.feature.detail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import com.nik.mornhouse.databinding.FragmentDetailBinding
@@ -18,7 +19,7 @@ class DetailFragment : Fragment() {
         binding = this
         tvDeteiledFact.text = args.number.text
         tvDeteiledNumber.text = args.number.number.toString()
-
+        Log.d("Nik", "DetailFragment view created")
     }.root
 
 
